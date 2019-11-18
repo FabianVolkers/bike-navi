@@ -102,37 +102,67 @@
                                 origin.geometry.coordinates,
                                 destination.geometry.coordinates,
                             ],
-                            'preference': 'recommended'
+                            'preference': 'recommended',
+                            /*
+                            'options': {
+                                'avoid_features': 'unpavedroads',
+                                'profile_params': {
+                                    'weightings' : {
+                                        'green': '1',
+                                        'surface_type': 'cobblestone:flattened',
+                                        'smoothness_type': 'good',
+                                    },
+                                    'restrictions' : {
+
+                                    },
+                                    
+                                    
+                                    
+                                },
+                                "avoid_polygons": {
+                                    "type": "Polygon",
+                                    "coordinates": [
+                                        [
+                                            [100.0, 0.0],
+                                            [101.0, 0.0],
+                                            [101.0, 1.0],
+                                            [100.0, 1.0],
+                                            [100.0, 0.0]
+                                        ]
+                                    ]
+                                }
+
+                            }*/
                         },
                         response: {}
                     }
                 }
-        
+
                 // 3 seperate API calls
                 //fastest route
                 await axios.post(url, this.routes['fastest'].request, config).then(response => {
-                        this.routes['fastest'].response = response.data
+                    this.routes['fastest'].response = response.data
 
-                    }).catch(e => {
-                        this.errors.push(e)
-                    })
-                
+                }).catch(e => {
+                    this.errors.push(e)
+                })
+
                 //shortest route
                 await axios.post(url, this.routes['shortest'].request, config).then(response => {
-                        this.routes['shortest'].response = response.data
+                    this.routes['shortest'].response = response.data
 
-                    }).catch(e => {
-                        this.errors.push(e)
-                    })
+                }).catch(e => {
+                    this.errors.push(e)
+                })
 
                 //recommended route
                 await axios.post(url, this.routes['recommended'].request, config).then(response => {
-                        this.routes['recommended'].response = response.data
-                        this.$emit('got-route', this.routes)
-                        
-                    }).catch(e => {
-                        this.errors.push(e)
-                    })
+                    this.routes['recommended'].response = response.data
+                    this.$emit('got-route', this.routes)
+
+                }).catch(e => {
+                    this.errors.push(e)
+                })
 
                 /*
                 axios.post(url, data, config).then(response => {
